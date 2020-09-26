@@ -23,9 +23,6 @@ public:
         }
         path.emplace_back(root->val);
         inorder(root->left, acc + root->val);
-        path.pop_back();
-
-        path.emplace_back(root->val);
         inorder(root->right, acc + root->val);
         path.pop_back();
     }
