@@ -34,7 +34,32 @@ public:
     }
 };
 
+// 简洁手撸版
+void quickSort(int *arr, int l, int r)
+{
+    if(l >= r) return;
+    // 下面进行patition操作
+    int x = l, y = r, temp = arr[l]; // 最左侧作为枢轴元素，暂存
+    while(x < y)
+    {
+        // 右边找比枢轴小的，注意x<y的判断
+        while(x < y && arr[y] >= temp) --y;
+        // 找到了则交换
+        if(x < y) arr[x] = arr[y];
+        while(x < y && arr[x] <= temp) ++x;
+        if(x < y) arr[y] = arr[x];
+    }
+    arr[x] = temp; // 枢轴位置赋值为原来存储的
+    quickSort(arr, l, x - 1);
+    quickSort(arr, x + 1, r);
+    return;
+}
+
 int main()
 {
+    int a[10] = {1, 4, 6, 5, 3};
+    quickSort(a, 0, 4);
+    for(int i = 0; i < 5; ++i)
+        printf("%d ", a[i]);
     return 0;
 }

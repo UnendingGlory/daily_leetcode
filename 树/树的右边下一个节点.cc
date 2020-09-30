@@ -52,7 +52,7 @@ public:
  * 处理完后直接通过next指针遍历即可
  */ 
 
-class Solution {
+class Solution1 {
 public:
     void handle(Node* &last, Node* &p, Node* &nextStart) 
     {
@@ -80,3 +80,29 @@ public:
         return root;
     }
 };
+
+void quickSort(int *arr, int l, int r)
+{
+    if(l >= r) return;
+    int temp = arr[l];
+    int x = l, y = r;
+    while(x < y)
+    {
+        while(x < y && arr[y] >= temp) --y;
+        if(x < y) arr[x] = arr[y];
+        while(x < y && arr[x] <= temp) ++x;
+        if(x < y) arr[y] = arr[x];
+    }
+    arr[x] = temp;
+    quickSort(arr, l, x - 1);
+    quickSort(arr, x + 1, r);
+    return;
+}
+
+int main()
+{
+    int a[10] = {1, 3, 6, 5, 4};
+    quickSort(a, 0, 4);
+    for(int i = 0; i < 5; ++i) printf("%d ", a[i]);
+    return 0;
+}
