@@ -4,6 +4,7 @@ using namespace std;
 /*
  * 即在字符串S中找寻字符串J出现的所有字母
  */
+
 class Solution {
 public:
     int numJewelsInStones(string J, string S) {
