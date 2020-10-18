@@ -65,6 +65,7 @@
         "valarray": "cpp",
         "random": "cpp",
         "test.C": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "xutility": "cpp"
     }
 }

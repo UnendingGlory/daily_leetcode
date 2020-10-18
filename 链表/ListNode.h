@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include <../header.h>
 using namespace std;
 
 struct ListNode {
