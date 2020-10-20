@@ -1,3 +1,6 @@
+#ifndef HEADER_H
+#define HEADER_H
+
 #include <iostream>
 #include <set>
 #include <string>
@@ -8,3 +11,5 @@
 #include <algorithm>
 #include <memory>
 using namespace std;
+
+#endif
