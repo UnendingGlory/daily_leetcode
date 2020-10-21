@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include <header.h>
 #include <cassert>
 using namespace std;
 
@@ -15,6 +15,13 @@ void print(const int ia[], size_t size)
         cerr << __func__ << "array size is" << size << endl;
     #endif
 }
+
+/**
+ *  @brief a template of adding two numbers
+ *  @param a the first number
+ *  @param b the second number
+ *  @return return the sum of two numbers
+ */
 
 template<typename T, typename U>
 auto add3(T a, U b) -> decltype(a + b)
