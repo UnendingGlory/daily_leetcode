@@ -1,6 +1,6 @@
 #ifndef BINARY_TREE_H
 #define BINART_TREE_H
-#include <bits/stdc++.h>
+#include <../header.h>
 using namespace std;
 
 struct TreeNode {
