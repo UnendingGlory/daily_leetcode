@@ -68,6 +68,9 @@
         "regex": "cpp",
         "xutility": "cpp",
         "xhash": "cpp",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "algorithm": "cpp",
+        "queue": "cpp",
+        "map": "cpp"
     }
 }

@@ -1,51 +1,27 @@
-#include <header.h>
-#include <cassert>
+#include "header.h"
 using namespace std;
 
-int n;
-const int id()
-{
-    return 10;
-}
-
-void print(const int ia[], size_t size)
-{
-    #ifndef NDEBUG
-        // __func__是编译器定义的一个局部静态变量，用来存放函数名字
-        cerr << __func__ << "array size is" << size << endl;
-    #endif
-}
-
-/**
- *  @brief a template of adding two numbers
- *  @param a the first number
- *  @param b the second number
- *  @return return the sum of two numbers
- */
-
-template<typename T, typename U>
-auto add3(T a, U b) -> decltype(a + b)
-{
-    return a + b;
-}
-
-// 这是一个lambda类，而不是函数
-auto add4 = [](int a, int b)->int
-{
-    return a + b;
+class Solution {
+public:
+    string kthSmallestPath(vector<int>& destination, int k) {
+		int numH = destination[1], numV = destination[0];
+		// 先生成全排列排序
+		string str;
+		for(int i = 0; i < numH; ++i) str.push_back('H');
+		for(int i = 0; i < numV; ++i) str.push_back('V');
+		int i = 1;
+		do
+		{
+			if(i++ == k) return str;
+		} while (next_permutation(str.begin(), str.end()));
+		return "";
+    }
 };
 
 int main(int argc, char **argv)
 {
-    const string s = "Keep out!";
-    vector<int> a{1, 2, 3};
-    for(decltype(a.size()) i = 0; i < 0;);
-    auto it = a.cbegin();
-    const string st = "aaa";
-    auto b = const_cast<string &>(st); 
-    cout << b << endl;
-    int sss[id()];
-    cout << add3(5, 6) << endl;
-    cout << add4(5, 6) << endl;
-    return EXIT_SUCCESS;
+    Solution s;
+    vector<int> a {12, 13};
+    std::cout << s.kthSmallestPath(a, 784173);
+    return 0;
 }
