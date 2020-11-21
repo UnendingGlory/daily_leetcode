@@ -71,6 +71,22 @@
         "xstring": "cpp",
         "algorithm": "cpp",
         "queue": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "set": "cpp",
+        "xlocnum": "cpp",
+        "xmemory": "cpp",
+        "xtree": "cpp",
+        "xtr1common": "cpp",
+        "compare": "cpp",
+        "concepts": "cpp",
+        "ios": "cpp",
+        "iterator": "cpp",
+        "stack": "cpp",
+        "string": "cpp",
+        "xfacet": "cpp",
+        "xiosbase": "cpp",
+        "xlocale": "cpp",
+        "xlocinfo": "cpp",
+        "xstddef": "cpp"
     }
 }
