@@ -1,3 +1,53 @@
+#include "../header.h"
+#include "binary_tree.h"
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+//
+//  1
+// 2 3
+// bug
+class Solution {
+public:
+
+    int countNodes(TreeNode* root) {
+		int h = 0;
+		auto p = root;
+		while(p->left != nullptr)
+			p = p->left, ++h;
+		
+		// h = 2
+		// 2-3
+		// from 1+2+...+2^(n - 2) + 1 = 2^(h - 1) to 2^h - 1
+		// 前缀1，100-111
+		int left = 1 << h, right = (1 << (h + 1)) - 1;
+		while(left < right)
+		{
+			auto mid = (left + right) >> 1;
+			int assis = 1 << (h - 1);
+			p = root;
+			while(p && assis)
+			{
+				// 左边是0，右边是1
+				if(assis & mid) p = p->right;
+				else p = p->left;
+				assis >>= 1;
+			}
+			if(p == nullptr) right = mid - 1;
+			else left = mid;
+		}
+		return left;
+    }
+};
+
+// right
 class Solution {
 public:
     int countNodes(TreeNode* root) {
