@@ -66,11 +66,34 @@ void quickSort(int *arr, int l, int r)
     return;
 }
 
+// unguarded_partition版本
+void unguardedSort(int *arr, int l, int r)
+{
+    if(l >= r) return;
+    int x = l, y = r, temp = arr[l];
+    // 在这里肯定 x < y
+    while(x <= y)
+    {
+        // 找到 >= pivot的地方（注意，这里一定是<，否则有误）
+        while(arr[x] < temp) ++x;
+        // 找到 <= pivot的地方（注意，这里一定是>，否则有误）
+        while(arr[y] > temp) --y;
+        if(x <= y)
+        {
+            swap(arr[x], arr[y]);
+            ++x, --y;
+        }
+    }
+    // 在这里x > y
+    unguardedSort(arr, l, y);
+    unguardedSort(arr, x, r);
+}
+
 int main()
 {
-    int a[10] = {1, 4, 6, 5, 3};
-    quickSort(a, 0, 4);
-    for(int i = 0; i < 5; ++i)
+    int a[10] = {1, 4, 231, 6, 213, 5, 3};
+    unguardedSort(a, 0, 6);
+    for(int i = 0; i < 7; ++i)
         printf("%d ", a[i]);
     return 0;
 }

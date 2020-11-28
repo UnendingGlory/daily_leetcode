@@ -9,7 +9,8 @@
 				是快排等算法较优。
  *  @note
  ***************************************************************************/
-#include "../header.h"
+// g++ .\radix_sort.cpp -I "..\" -o radix_sort
+#include "header.h"
 
 // 模板类，用来打印各类数据（只要该类重载了运算符<<即可）
 template <typename T>
@@ -50,7 +51,6 @@ void radix_sort(vector<int>& nums) {
 		}
 		divisor *= 10;
 	}
-	cout << '\n';
 }
 
 int main()

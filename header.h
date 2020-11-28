@@ -3,7 +3,7 @@
  *  @author     Wilosn.Wang
  *  @date       26  Nov 2020
  *  @remark     可以以相对路径将该头文件包含进目标文件使用
-				也可以#include <header.h>，然后以gcc -l加入路径的方式组合编译
+				也可以#include <header.h>，然后以gcc -I加入路径的方式组合编译
  *  @note
  ***************************************************************************/
 
@@ -20,7 +20,11 @@
 #include <algorithm>
 #include <stack>
 #include <queue>
+#include <forward_list>
+#include <list>
+#include <utility>
 #include <memory>
+#include <functional>
 using namespace std;
 
 #endif
