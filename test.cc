@@ -2,7 +2,8 @@
 
 class A
 {
-
+public:
+    virtual void display() = 0;
 };
 
 int main()
@@ -25,8 +26,5 @@ int main()
     // 一般采用sort + unique + erase
     cout << (-5 << 1) << '\n';
     // cout << *it << ' ' << *(++it);
-    std::logical_and<int>
-    greater<int>
-    plus<int>
     return 0;
 }
