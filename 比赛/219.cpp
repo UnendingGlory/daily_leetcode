@@ -15,7 +15,7 @@ public:
     }
 };
 
-// T2
+// T2   
 class Solution {
 public:
     vector<int> mostCompetitive(vector<int>& nums, int k) {

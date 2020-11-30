@@ -24,7 +24,13 @@ int main()
     // unique操作并不会擦除，而只是将重复的调整到尾端
     // 且unique只对重复元素有效，所以需要去重
     // 一般采用sort + unique + erase
-    cout << (-5 << 1) << '\n';
+    vector<int> a{1, 2, 3, 4, 5};
+    for(auto i : a) i = 1;
+    for(auto &i : a) cout << i;
+    cout << '\n';
+    for(auto &i : a) i = 1;
+    for(auto &i : a) cout << i;
+    // cout << (-5 << 1) << '\n';
     // cout << *it << ' ' << *(++it);
     return 0;
 }
