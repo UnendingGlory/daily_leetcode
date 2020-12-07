@@ -20,7 +20,7 @@ public:
         int temp = nums[left]; // 选取第一个元素作为枢轴
         while(left < right) // 未相遇
         {
-            while(left < right && nums[right] > temp) --right;
+            while(left < right && nums[right] >= temp) --right;
             swap(nums[left], nums[right]); // 小于，则交换
             // 这第二个while的等号一定要写，否则会造成死循环
             while(left < right && nums[left] <= temp) ++left;
@@ -70,29 +70,33 @@ void quickSort(int *arr, int l, int r)
 void unguardedSort(int *arr, int l, int r)
 {
     if(l >= r) return;
-    int x = l, y = r, temp = arr[l];
+    int x = l, y = r, pivot = arr[l];
     // 在这里肯定 x < y
     while(x <= y)
     {
         // 找到 >= pivot的地方（注意，这里一定是<，否则有误）
-        while(arr[x] < temp) ++x;
+        while(arr[x] > pivot) ++x;
         // 找到 <= pivot的地方（注意，这里一定是>，否则有误）
-        while(arr[y] > temp) --y;
+        while(arr[y] < pivot) --y;
         if(x <= y)
         {
             swap(arr[x], arr[y]);
             ++x, --y;
         }
     }
-    // 在这里x > y
-    unguardedSort(arr, l, y);
+
+    // 到这里x左边的元素全部<=pivot，x右边的元素全部>=pivot
+    // 注意，这里pivot枢轴元素可能离x（或者y）很远
+    // 这算是无监督版quicksort的一个缺点？
+    // printf("%d ", arr[x - 1]);
+    unguardedSort(arr, l, x - 1);
     unguardedSort(arr, x, r);
 }
 
 int main()
 {
-    int a[10] = {1, 4, 231, 6, 213, 5, 3};
-    unguardedSort(a, 0, 6);
+    int a[10] = {1, 4, 231, 6, 213, 5, 5};
+    quickSort(a, 0, 6);
     for(int i = 0; i < 7; ++i)
         printf("%d ", a[i]);
     return 0;
