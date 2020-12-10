@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// 空间可以优化，栈可以优化成三个int型变量表示三种括号的左括号数量
+
 class Solution {
 public:
     bool isValid(string s) {
