@@ -87,6 +87,7 @@
         "xiosbase": "cpp",
         "xlocale": "cpp",
         "xlocinfo": "cpp",
-        "xstddef": "cpp"
+        "xstddef": "cpp",
+        "memory_resource": "cpp"
     }
 }

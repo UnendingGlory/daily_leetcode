@@ -13,6 +13,7 @@ public:
             n /= 2;
         }
         return ans;
+        // return n - 1; // n个队伍淘汰赛就需要n-1轮
     }
 };
 
