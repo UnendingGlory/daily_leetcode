@@ -27,6 +27,7 @@ void radix_sort(vector<int>& nums) {
 	int n = nums.size();
 	vector<vector<int>> bucket(10); // 10个桶
 	// 获得最大元素，以此作为循环终止条件
+    // 也可以根据最大元素获得其最大位数作为终止条件
 	int maxNum = *max_element(nums.begin(), nums.end());
 	int divisor = 1;
 	while(divisor <= maxNum)

@@ -7,6 +7,7 @@ public:
         int n = prices.size();
 		// 2 * n
 		vector<vector<int>> dp(2, vector<int>(n));
+        // 0代表操作完没有股票的状态，1代表操作完有股票的状态
 		// dp[i][0]，若i时刻没有股票，则什么都不做，若i时刻有股票，则卖出
 		// dp[i][0] = max{dp[i - 1][0], dp[i - 1][1] + prices[i] }
 		// dp[i][1]，若i时刻有股票，则i时刻什么都不做，若i时刻没有股票，则i时刻买进
@@ -34,10 +35,8 @@ public:
 		int last1 = 0, last2 = -prices[0];
 		for(int i = 1; i < n; ++i)
 		{
-			int cur1 = max(last1, last2 + prices[i]);
-			int cur2 = max(last2, last1 - prices[i]);
-			last1 = cur1;
-			last2 = cur2;
+			last1 = max(last1, last2 + prices[i]);
+			last2 = max(last2, last1 - prices[i]);
 		}
 		return last1;
     }
