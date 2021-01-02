@@ -52,3 +52,5 @@ public:
         return ans;
     }
 };
+
+// 线性筛

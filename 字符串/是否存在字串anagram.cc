@@ -1,8 +1,5 @@
 #include "header.h"
 #include <random>
-#include <ctime>
-#include <numeric>
-#include <chrono>
 
 // o(n), 滑动窗口 + 哈希
 int has_anagram1(const string &str, const string &aim) {
@@ -40,10 +37,10 @@ int has_anagram2(const string& str, const string& aim) {
         if (invalid == 0) {
             return r - len;
         }
-        if (count[str[r] - 'a']-- <= 0) {
+        if (count[str[r] - 'a']-- == 0) {
             ++invalid;
         }
-        if (count[str[r - len] - 'a']++ < 0) {
+        if (count[str[r - len] - 'a']++ == -1) {
             --invalid;
         }
     }
@@ -51,40 +48,31 @@ int has_anagram2(const string& str, const string& aim) {
     return !invalid ? r - len : -1;
 }
 
-const string table = "abcdefghijklmnopqrstuvwxyz";
-const size_t max_index = table.size() - 1;
-constexpr std::default_random_engine e;  // random_engine声明为static的
-std::uniform_int_distribution<size_t> distrib(1, max_index);
-
 std::string random_string(size_t len) 
 {
-    constexpr std::default_random_engine ee();
-    std::uniform_int_distribution<size_t> dis;
     auto randchar = []()->char {
-        return table[distrib(e)];
+        const string table = "abcdefghijklmnopqrstuvwxyz";
+        const size_t max_index = table.size() - 1;
+        std::random_device rd;  // Will be used to obtain a seed for the random number engine
+        std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
+        std::uniform_int_distribution<> distrib(1, max_index);
+        return table[distrib(gen)];
     };
     string ret;
-    ret.resize(len);
     generate_n(ret.begin(), len, randchar);
     return ret;
 }
 
 int main()
 {
-    int testTimes = 4e5;
-    // std::chrono::system_clock sc;
-    // std::cout << sc.now() << std::endl;
+    int testTimes = 5e4;
     while (testTimes--) {
         string str = random_string(8), aim = random_string(4);
-        // std::cout << str << " " << aim << std::endl;
         if (has_anagram1(str, aim) != has_anagram2(str, aim)) {
             std::cout << "Error!\n" << std::endl;
-            std::cout << str << " " << aim << std::endl;
             break;
         }
     }
-    // std::cout << has_anagram1("tnnwlpuo", "puwl") << std::endl;
-    // std::cout << has_anagram2("tnnwlpuo", "puwl") << std::endl;
     std::cout << "Test finished!\n" << std::endl;
     return 0;
 }
