@@ -69,6 +69,39 @@ std::string random_string(size_t len)
     return ret;
 }
 
+// 从小到大
+void basicQuickSort(vector<int>& num, int l, int r)
+{
+    if (l >= r) return;
+    // partition
+    int pivot = num[l], x = l, y = r;
+    while (x < y) {
+        while (x < y && num[y] >= pivot) --y;
+        swap(pivot, num[y]);
+        while (x < y && num[x] <= pivot) ++x;
+        swap(pivot, num[x]);
+    }
+    // x == y
+    num[x] = pivot;
+    basicQuickSort(num, l, x - 1);
+    basicQuickSort(num, x + 1, r);
+}
+
+// 无监督版
+void unguardQuickSort(vector<int>& num, int l, int r)
+{
+    if (l >= r) return;
+    int pivot = num[l], x = l, y = r;
+    while (x <= y) {
+        while (num[x] > pivot) ++x;
+        while (num[y] < pivot) --y;
+        if (x <= y) {
+            swap(num[x], num[y]);
+            ++x, --y;
+        }
+    }
+}
+
 int main()
 {
     int testTimes = 4e5;

@@ -53,7 +53,7 @@ void quickSort(int *arr, int l, int r)
     int x = l, y = r, temp = arr[l]; // 最左侧作为枢轴元素，暂存
     while(x < y)
     {
-        // 右边找比枢轴小的，注意x<y的判断
+        // 先找右边找比枢轴小的，注意x<y的判断
         while(x < y && arr[y] >= temp) --y;
         // 找到了则交换
         if(x < y) arr[x] = arr[y];
