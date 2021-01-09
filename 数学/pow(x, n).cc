@@ -48,3 +48,17 @@ public:
         return (n >= 0) ? ret : 1.0 / ret;
     }
 };
+
+// 快速幂求余
+// 有的时候x ^ a可能会溢出，超出32位甚至64位的表示范围，如何能够得到正确的余数结果
+int reminder(int x, int a, int p) {
+    int rem = 1;
+    while (a) {
+        if (a &1) {
+           rem = (rem * x) % p;
+        }
+        a >>= 1;
+        (x *= x) %= p; // 相当于x^2 % p
+    }
+    return rem;
+}
