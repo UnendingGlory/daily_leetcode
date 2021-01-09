@@ -58,7 +58,8 @@ int reminder(int x, int a, int p) {
            rem = (rem * x) % p;
         }
         a >>= 1;
-        (x *= x) %= p; // 相当于x^2 % p
+        // 这里防止x * x溢出
+        x = ((long long)x * x) % p;
     }
     return rem;
 }
