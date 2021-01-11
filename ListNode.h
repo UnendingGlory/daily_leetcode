@@ -1,6 +1,5 @@
-#include <../header.h>
-using namespace std;
-
+#ifndef LISTNODE_H
+#define LISTNODE_H
 struct ListNode {
     int val;
     ListNode *next;
@@ -8,3 +7,4 @@ struct ListNode {
     ListNode(int x) : val(x), next(nullptr) {}
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
+#endif
