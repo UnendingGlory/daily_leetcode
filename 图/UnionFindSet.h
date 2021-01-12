@@ -1,3 +1,14 @@
+/***************************************************************************
+ *  @file       UnionFindSet.h
+ *  @author     Wilosn.Wang
+ *  @date       12  Jan 2021
+ *  @remark     可以以相对路径将该头文件包含进目标文件使用
+				也可以#include <UnionFindSet.h>，然后以gcc -I加入路径的方式组合编译
+ *  @note
+ ***************************************************************************/
+
+#ifndef UNIONFINDSET_H
+#define UNIONFINDSET_H
 #include "header.h"
 
 // 并查集模板
@@ -44,3 +55,4 @@ public:
         return ret;
     }
 };
+#endif

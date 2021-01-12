@@ -109,6 +109,7 @@ class X
 public:
     auto getAdress() const -> string const &{ return address;}
     auto getAdress() const -> const string &{ return address;}
+    inline X& operator=(const X& x) { }
 private:
     string address;
 };

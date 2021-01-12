@@ -68,7 +68,7 @@ public:
 // 需要解决的问题：删除前缀0的问题
 // 在push_back进temp前进行判断
 
-class RecurSolution : public MySolution{
+class RecurSolution : public MySolution {
     string temp;
     vector<string> ans;
 public:
