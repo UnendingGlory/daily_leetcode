@@ -2,6 +2,8 @@
 // 三种方法
 
 // 回溯法
+// 主要需要处理的就是a*这种情况
+// a*即可以当作0个，也可以当作1个a，也可以当作多个a
 class Solution {
 public:
     bool isMatch(string s, string p) {
