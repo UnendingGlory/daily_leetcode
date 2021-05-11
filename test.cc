@@ -107,6 +107,7 @@
 int main()
 {
     auto a = nullptr;
+    int test = 222;
     auto b = 1;
     return 0;
 }
