@@ -19,7 +19,7 @@ public:
             // 即用q的size记录每一层的个数，不用另外再开队列。
             // 这种BFS便于记录树的每一层个数
             int currentLevelSize = q.size();
-            ret.push_back(vector <int> ());
+            ret.push_back(vector <int> ()); // 每一层新开一个
             for (int i = 1; i <= currentLevelSize; ++i) {
                 auto node = q.front();
                 q.pop();
