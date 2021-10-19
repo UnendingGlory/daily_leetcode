@@ -1,137 +1,30 @@
-// #include "header.h"
-// #include <random>
-// #include <ctime>
-// #include <numeric>
-// #include <chrono>
-
-// // o(n), 滑动窗口 + 哈希
-// int has_anagram1(const string &str, const string &aim) {
-//     if (str.size() < aim.size()) {
-//         return -1;
-//     }
-//     unordered_map<char, int> occur, windows;
-//     for (int i = 0; i < 26; ++i) { // 使用unordered_map的比较要先预处理字符
-//         occur['a' + i] = windows['a' + i] = 0;
-//     }
-//     for (char c : aim) ++occur[c];
-//     for (int i = 0; i < aim.size(); ++i) {
-//         ++windows[str[i]];
-//     }
-//     if (windows == occur) return 0;
-//     for (int i = 1, j = aim.size(); j < str.size(); ++i, ++j) {
-//         --windows[str[i - 1]], ++windows[str[j]];
-//         if(windows == occur) return i;
-//     }
-//     return -1;
-// }
-
-// // 如果不是anagram一定会有一个负的
-// // 该方法寻找第一个位置，没有则返回-1
-// // 即不用哈希表，统计是否有负的就行，用一个变量记录
-// int has_anagram2(const string& str, const string& aim) {
-//     int count[26] = {0}, invalid = 0, r = 0, len = aim.size();
-//     for(const char c: aim) ++count[c - 'a'];
-//     for (; r < aim.size(); ++r) {
-//         if (--count[str[r] - 'a'] < 0) {
-//             ++invalid;
-//         }
-//     }
-//     for (; r < str.size(); ++r) {
-//         if (invalid == 0) {
-//             return r - len;
-//         }
-//         if (count[str[r] - 'a']-- <= 0) {
-//             ++invalid;
-//         }
-//         if (count[str[r - len] - 'a']++ < 0) {
-//             --invalid;
-//         }
-//     }
-//     // 最后一个window
-//     return !invalid ? r - len : -1;
-// }
-
-// const string table = "abcdefghijklmnopqrstuvwxyz";
-// const size_t max_index = table.size() - 1;
-// constexpr std::default_random_engine e;  // random_engine声明为static的
-// std::uniform_int_distribution<size_t> distrib(1, max_index);
-
-// std::string random_string(size_t len) 
-// {
-//     constexpr std::default_random_engine ee();
-//     std::uniform_int_distribution<size_t> dis;
-//     auto randchar = []()->char {
-//         return table[distrib(e)];
-//     };
-//     string ret;
-//     ret.resize(len);
-//     generate_n(ret.begin(), len, randchar);
-//     return ret;
-// }
-
-// // 从小到大
-// void basicQuickSort(vector<int>& num, int l, int r)
-// {
-//     if (l >= r) return;
-//     // partition
-//     int pivot = num[l], x = l, y = r;
-//     while (x < y) {
-//         while (x < y && num[y] >= pivot) --y;
-//         swap(pivot, num[y]);
-//         while (x < y && num[x] <= pivot) ++x;
-//         swap(pivot, num[x]);
-//     }
-//     // x == y
-//     num[x] = pivot;
-//     basicQuickSort(num, l, x - 1);
-//     basicQuickSort(num, x + 1, r);
-// }
-
-// // 无监督版
-// void unguardQuickSort(vector<int>& num, int l, int r)
-// {
-//     if (l >= r) return;
-//     int pivot = num[l], x = l, y = r;
-//     while (x <= y) {
-//         while (num[x] > pivot) ++x;
-//         while (num[y] < pivot) --y;
-//         if (x <= y) {
-//             swap(num[x], num[y]);
-//             ++x, --y;
-//         }
-//     }
-// }
-
 #include "header.h"
 
-class X
-{
+class Solution {
 public:
-    auto getAdress() const -> string const &{ return address;}
-    auto getAdress() const -> const string &{ return address;}
-    inline X& operator=(const X& x) { }
-private:
-    string address;
+    int movingCount(int threshold, int rows, int cols) 
+    {
+        if (rows <= 0 || cols <= 0 || threshold < 0)return 0;
+        vector<vector<bool> > visited(rows, vector<bool>(cols));
+        return Count(0, 0, visited, threshold, rows, cols);
+    }
+    int Count(int x, int y, vector<vector<bool> >visited, int thr, int rows, int cols)
+    {
+        //递归出口 被访问了 出界 超过边际
+        if(visited[x][y]||x >= rows||x < 0||y >= cols||y < 0||Sum(x) + Sum(y) > thr) return 0;
+        visited[x][y] = true;
+        return 1 + Count(x + 1, y, visited, thr, rows, cols) 
+                 + Count(x - 1, y, visited, thr, rows, cols)
+                 + Count(x, y + 1, visited, thr, rows, cols) 
+                 + Count(x, y - 1, visited, thr, rows, cols);
+    }
+    
+      int Sum(int num) {
+        int sum = 0;
+        while (num > 0) {
+            sum += num % 10;
+            num /= 10;
+        }
+        return sum;
+      }
 };
-
-void func(string &a)
-{
-    a = nullptr;
-}
-
-const string& func1(const string& a)
-{
-    string b = nullptr;
-    return b;
-}
-
-string const& func2(const string& a)
-{
-    return a;
-}
-
-int main()
-{
-    func1(nullptr);
-    return 0;
-}

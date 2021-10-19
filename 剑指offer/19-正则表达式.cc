@@ -5,14 +5,62 @@
 // 主要需要处理的就是a*这种情况
 // a*即可以当作0个，也可以当作1个a，也可以当作多个a
 class Solution {
+    int s_size, p_size;
 public:
-    bool isMatch(string s, string p) {
 
+    // index i for s, index j for p
+    bool matchRecur(const string& s, const string& p, int i, int j) {
+        if (i == s_size && j == p_size) return true;
+        // if pattern end in advance
+        if (j == p_size) return false;
+        if (p[j + 1] == '*') {
+            // next state, one match or any match or no match
+            if (p[j] == s[i] || p[j] == '.' && i < s_size) {
+                return matchRecur(s, p, i + 1, j + 2) || matchRecur(s, p, i + 1, j) || matchRecur(s, p, i, j + 2);
+            } else {
+                // not equal, ignore '*'
+                return matchRecur(s, p, i, j + 2);
+            }
+        }
+        if (s[i] == p[j] || p[j] == '.' && i < s_size) {
+            return matchRecur(s, p, i + 1, j + 1);
+        }
+        return false;
+    }
+
+    bool isMatch(string s, string p) {
+        s_size = s.size(), p_size = p.size();
+        return matchRecur(s, p, 0, 0);
     }
 };
 
-// 动态规划法
+// 动态规划法，将递归转换为状态转移方程
+// dp[i][j]代表s的前i个字符能否和p的前j个字符匹配
+// dp[0][0]为空字符，可以匹配，dp[i][j]对应的字符是s[i-1]和p[j-1]
+// 当p[j - 1] = '*', 任意次匹配 || 0次匹配 || 1次匹配 
+// dp[i][j] = (dp[i - 1][j] && (s[i - 1] == p[j - 2] || p[j - 2] == '.')
+// || dp[i][j - 2] || dp[i][j - 1]
+// 当p[j-1] = '*', 任意次匹配 || 0次匹配 || 1次匹配 
+// 这也太难了。。
 
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+        int m = s.size() + 1, n = p.size() + 1;
+        vector<vector<bool>> dp(m, vector<bool>(n, false));
+        dp[0][0] = true;
+        for(int j = 2; j < n; j += 2)
+            dp[0][j] = dp[0][j - 2] && p[j - 1] == '*';
+        for(int i = 1; i < m; i++) {
+            for(int j = 1; j < n; j++) {
+                dp[i][j] = p[j - 1] == '*' ?
+                    dp[i][j - 1] || dp[i][j - 2] || dp[i - 1][j] && (s[i - 1] == p[j - 2] || p[j - 2] == '.'):
+                    dp[i - 1][j - 1] && (p[j - 1] == '.' || s[i - 1] == p[j - 1]);
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
+};
 
 // 使用编译原理相关知识
 // 对于每一个pattern构造一个DFA
