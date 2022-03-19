@@ -20,6 +20,7 @@ public:
         int temp = nums[left]; // 选取第一个元素作为枢轴
         while(left < right) // 未相遇
         {
+            // 找到第一个比枢轴小的元素
             while(left < right && nums[right] >= temp) --right;
             swap(nums[left], nums[right]); // 小于，则交换
             // 这第二个while的等号一定要写，否则会造成死循环
@@ -63,7 +64,6 @@ void quickSort(int *arr, int l, int r)
     arr[x] = temp; // 枢轴位置赋值为原来存储的
     quickSort(arr, l, x - 1);
     quickSort(arr, x + 1, r);
-    return;
 }
 
 // unguarded_partition版本

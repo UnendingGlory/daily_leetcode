@@ -26,6 +26,8 @@
 #include <utility>
 #include <memory>
 #include <functional>
+#include "ListNode.h"
+#include "TreeNode.h"
 using namespace std;
 
 #endif

@@ -1,5 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include "header.h"
 
 // 哈希表和双向链表
 // get用hash,哈希表的value为链表节点类型。时间复杂度为o(1), put用双向链表，复杂度也为o(1)
@@ -74,3 +73,95 @@ public:
         d->pre = head;
     }
 };
+
+// LRU Cache简易实现：
+// ○ display函数显示LRUCache中目前存在的数字。
+// ○ deque + map实现
+
+// We can use stl container list as a double
+// ended queue to store the cache keys, with
+// the descending time of reference from front
+// to back and a set container to check presence
+// of a key. But to fetch the address of the key
+// in the list using find(), it takes O(N) time.
+// This can be optimized by storing a reference
+//     (iterator) to each key in a hash map.
+ 
+
+// 队头是最久未使用的，队尾是最近使用的
+class LRUCache {
+    // store keys of cache
+    list<int> dq;
+ 
+    // store references of key in cache
+    unordered_map<int, list<int>::iterator> ma;
+    int csize; // maximum capacity of cache
+ 
+public:
+    LRUCache(int);
+    void refer(int);
+    void display();
+};
+ 
+// Declare the size
+LRUCache::LRUCache(int n)
+{
+    csize = n;
+}
+ 
+// Refers key x with in the LRU cache
+void LRUCache::refer(int x)
+{
+    // not present in cache
+    if (ma.find(x) == ma.end()) {
+        // cache is full
+        if (dq.size() == csize) {
+            // delete least recently used element
+            int last = dq.back();
+ 
+            // Pops the last element
+            dq.pop_back();
+ 
+            // Erase the last
+            ma.erase(last);
+        }
+    }
+ 
+    // present in cache
+    else
+        dq.erase(ma[x]);
+ 
+    // update reference
+    dq.push_front(x);
+    ma[x] = dq.begin();
+}
+ 
+// Function to display contents of cache
+void LRUCache::display()
+{
+ 
+    // Iterate in the deque and print
+    // all the elements in it
+    for (auto it = dq.begin(); it != dq.end();
+         it++)
+        std::cout << (*it) << " ";
+ 
+    std::cout << std::endl;
+}
+ 
+// Driver Code
+int main()
+{
+    LRUCache ca(5);
+ 
+    ca.refer(0);
+    ca.refer(1);
+    ca.refer(2);
+    ca.refer(3);
+    ca.refer(4);
+    ca.refer(2);
+    ca.display();
+ 
+    return 0;
+}
+

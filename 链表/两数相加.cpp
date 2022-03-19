@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include "header.h"
 using namespace std;
 /**
  * Definition for singly-linked list.
@@ -19,24 +19,29 @@ struct ListNode {
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        ListNode* p = l1, *q = l2;
-        int temp, C = 0;
-        while(p != nullptr || q!= nullptr)
+        ListNode* p = l1, *q = l2, *r;
+        int C = 0;
+        while(p != nullptr || q != nullptr)
         {
+            int temp = 0;
             if(p == nullptr)
             {
                 p = new ListNode();
+                r->next = p;
                 temp = q->val;
             }
             else if(q == nullptr) temp = p->val;
             else temp = p->val + q->val;
             temp += C;
-            C = temp % 10;
+            C = temp / 10;
+            temp %= 10; 
             p->val = temp;
-            p = p->next, q = q->next;
+            r = p;
+            if(p) p = p->next;
+            if(q) q = q->next;
         }
-        // 最后一位
-        if(C) p->next = new ListNode(C);
+        // 进位
+        if(C) r->next = new ListNode(C);
         return l1;
     }
 };
