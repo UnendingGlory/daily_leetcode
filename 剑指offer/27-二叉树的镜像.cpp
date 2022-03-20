@@ -1,5 +1,4 @@
 #include "header.h"
-#include "binary_tree.h"
 // 输入一个二叉树，输出其镜像树
 
 /**

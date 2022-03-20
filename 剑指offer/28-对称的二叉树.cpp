@@ -1,5 +1,4 @@
 #include "header.h"
-#include "binary_tree.h"
 // 判断一个二叉树是否和其镜像相同
 
 
