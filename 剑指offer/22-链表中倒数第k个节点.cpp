@@ -18,3 +18,5 @@ public:
         return p;
     }
 };
+
+// 快慢指针法
