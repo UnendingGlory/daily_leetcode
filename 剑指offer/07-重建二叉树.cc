@@ -1,5 +1,4 @@
 #include "header.h"
-#include "binary_tree.h"
 
 // 前序中序建树
 // 常见题，递归

@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include "header.h"
 using namespace std;
 
 // 经典解法
@@ -22,7 +22,7 @@ public:
             if(vis[i] == false)
             {
                 p.push_back(i);
-                vis[i] = true; // 已用
+                vis[i] = true; // 已被访问
                 generate(index + 1, nums);    
                 vis[i] = false; // 向深层遍历，退出的时候还原
                 p.pop_back();

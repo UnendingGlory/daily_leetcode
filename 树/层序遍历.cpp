@@ -31,3 +31,26 @@ public:
         return ret;
     }
 };
+
+
+// 紧凑版本
+class Solution {
+public:
+    vector<int> levelOrder(TreeNode* root) {
+        if (root == nullptr) return {};
+        vector<int> ans;
+        queue<TreeNode *> q;
+        q.push(root);
+        while (!q.empty()) {
+            int n = q.size();
+            while(n--) { // 注意是 --n
+                auto tmp = q.front();
+                q.pop();
+                ans.emplace_back(tmp->val);
+                if(tmp->left) q.push(tmp->left);
+                if(tmp->right) q.push(tmp->right);
+            }
+        }
+        return ans;
+    }
+};

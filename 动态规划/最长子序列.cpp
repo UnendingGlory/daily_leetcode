@@ -1,5 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include "header.h"
 
 /** 动态规划经典问题
  * 子序列可以不连续

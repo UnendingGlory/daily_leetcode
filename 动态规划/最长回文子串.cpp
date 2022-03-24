@@ -1,7 +1,6 @@
 #include "header.h"
-using namespace std;
 
-/** 动态规划经典问题
+/** 动态规划经典问题，注意，这里返回的是子串
  *  dp[i][j]表示S[i]到S[j]是否是回文子串，1表示是，0表示否
  *  状态转移方程：dp[i][j] = dp[i + 1][j - 1], S[i] = S[j]
  *               dp[i][j] = 0, S[i] != S[j]
@@ -28,7 +27,7 @@ public:
                 start = i, len = 2;
             }
         }
-        for(int K = 3; K <= n; ++K)
+        for(int K = 3; K <= n; ++K) // 子串长度
         {
             for(int i = 0; i + K - 1 < n; ++i) // 枚举子串起始端点
             {
