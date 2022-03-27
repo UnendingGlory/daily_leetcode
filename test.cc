@@ -3,7 +3,10 @@
 #include <vector>
 using namespace std;
 
-int main()
-{
+int main() {
+    int N, L;
+    std::cin >> N >> L;
+    
+
     return 0;
 }

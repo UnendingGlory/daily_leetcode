@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include "header.h"
 using namespace std;
 
 // 方法一，第一遍, 56ms，有很多很迷的垃圾操作
