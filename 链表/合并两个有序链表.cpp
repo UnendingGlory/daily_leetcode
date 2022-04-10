@@ -1,11 +1,13 @@
-#include <bits/stdc++.h>
+#include "header.h"
 using namespace std;
+
 
 struct ListNode {
     int val;
     ListNode *next;
     ListNode(int x) : val(x), next(NULL) {}
 };
+
 
 // 双指针法，每次选小的
 class Solution {

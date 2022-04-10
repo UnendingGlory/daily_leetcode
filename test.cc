@@ -3,9 +3,11 @@
 #include <vector>
 using namespace std;
 
+class matrix {
+
+};
+
 int main() {
-    int N, L;
-    std::cin >> N >> L;
     
 
     return 0;

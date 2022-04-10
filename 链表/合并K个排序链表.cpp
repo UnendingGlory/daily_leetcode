@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include "header.h"
 using namespace std;
 
 struct ListNode {
@@ -12,15 +12,18 @@ struct ListNode {
 class Solution {
 public:
     // 在struct里自定义了优先级，在优先级队列中便不需要重新定义
-    struct Status {
+    // 优先级队列的大小关系是反的
+    
+    // 要记录值和指针
+    struct Headnode {
         int val;
         ListNode *ptr;
-        bool operator < (const Status &rhs) const {
+        bool operator < (const Headnode &rhs) const {
             return val > rhs.val;
         }
     };
 
-    priority_queue <Status> q;
+    priority_queue <Headnode> q;
 
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         for (auto node: lists) {

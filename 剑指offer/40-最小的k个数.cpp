@@ -10,14 +10,8 @@ public:
     vector<int> getLeastNumbers(vector<int>& arr, int k) {
         std::priority_queue<int, vector<int>> pq;
         for (int &num: arr) {
-            if (pq.size() < k) {
-                pq.push(num);
-            } else {
-                if (num < pq.top()) {
-                    pq.pop();
-                    pq.push(num);
-                }
-            }
+            pq.push(num);
+            if (pq.size() > k) pq.pop();
         }
         vector<int> ans;
         while (!pq.empty()) {
