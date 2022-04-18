@@ -62,6 +62,13 @@ public:
             tmp.pop_back();
         }
     }
+
+    vector<string> permutation(string s) {
+        n = s.size();
+        vis.resize(n);
+        permu(s, 0);
+        return ans;
+    }
 };
 
 
