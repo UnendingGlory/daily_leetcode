@@ -1,4 +1,5 @@
-#include <bits/stdc++.h>
+#include "header.h"
+
 using namespace std;
 // 如果一个数x是丑数，则2x,3x,5x也是，第一个是1
 // 由于可能重复，因此要用一个map判断
