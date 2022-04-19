@@ -1,7 +1,7 @@
 // 有序数组二分查找 logn
 // 可以调用algorithm中的lower_bound函数
 // 若是第一个大于的元素，则调用upper_bound函数
-#include <bits/stdc++.h>
+#include "header.h"
 using namespace std;
 
 // 二分查找解决问题o(logn)

@@ -119,6 +119,7 @@
         "ranges": "cpp",
         "stop_token": "cpp",
         "syncstream": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "__functional_03": "cpp"
     }
 }
