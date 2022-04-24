@@ -121,5 +121,6 @@
         "syncstream": "cpp",
         "filesystem": "cpp",
         "__functional_03": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

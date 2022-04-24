@@ -1,14 +1,17 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <array>
 using namespace std;
 
-class matrix {
+void array_func(const size_t& count) {
+    const size_t c = 10;
+    array<int, c> arr;
+    array<int, count> arr2;
+}
 
-};
 
 int main() {
-    string a("200"), b("3");
-    cout << (a > b) << endl;
+    array_func(1);
     return 0;
 }
