@@ -32,6 +32,7 @@ float sqrt(float x) {
 // 以x^2为预测值，y为实际值，目标：最小化L = (y - x^2)^2
 // L' = 2*(y - x^2)*(-2x) = -4x(y - x^2)
 // 根据梯度下降法，xnew = x - lr * L'
+// 而在机器学习中，y一般是loss function，x一般是权重w和偏置b
 float sqrtGD(float y) {
     if (y < 0) return -1;
     float lr = 0.001;     //学习率不能太大
