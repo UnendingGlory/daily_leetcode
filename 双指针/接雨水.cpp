@@ -33,9 +33,9 @@ public:
 // 由于是取第i个位置前缀最值和后缀最值中较小的那个，
 // 所以可以定义两个指针left和right，两个变量leftMax和rightMax。
 // leftMax和rightMax由left和right位置所在的元素维护。
-// 如果leftMax >= rightMax, 那么leftMax >= rightMax，
+// 如果height[left] >= height[right], 那么leftMax >= rightMax，
 //                      ans += rightMax - height[right], --right
-// 如果如果leftMax < rightMax, 那么leftMax < rightMax，
+// 如果如果height[left] < height[right], 那么leftMax < rightMax，
 //                      ans += leftMax - height[left], ++left
 class Solution {
 public:
@@ -46,12 +46,12 @@ public:
         while (left < right) { // left和right相等时终止
             leftMax = max(leftMax, height[left]);
             rightMax = max(rightMax, height[right]);
-            if (leftMax >= rightMax) {  // 相当于左右挡板高度
+            if (leftMax >= rightMax) {  // 理解成于左右挡板高度
                 ans += (rightMax - height[right]);
-                --right;
+                --right; // 右侧--
             } else {
                 ans += (leftMax - height[left]);
-                ++left;
+                ++left; // 左侧++
             }
         }
         return ans;

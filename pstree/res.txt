@@ -1,0 +1,97 @@
+systemd─┬─systemd-journal
+        ├─systemd-udevd
+        ├─dbus-daemon
+        ├─systemd-logind
+        ├─NetworkManager
+        ├─sshd
+        ├─sddm─┬─Xorg
+        │      └─sddm-helper───startplasma-x11───plasma_session─┬─kded5
+        │                                                       ├─kwin_x11
+        │                                                       ├─ksmserver─┬─DiscoverNotifie
+        │                                                       │           └─konsole───zsh
+        │                                                       ├─plasmashell───chrome─┬─cat
+        │                                                       │                      ├─cat
+        │                                                       │                      ├─chrome───chrome
+        │                                                       │                      ├─chrome─┬─nacl_helper
+        │                                                       │                      │        └─chrome─┬─chrome
+        │                                                       │                      │                 ├─chrome
+        │                                                       │                      │                 ├─chrome
+        │                                                       │                      │                 ├─chrome
+        │                                                       │                      │                 ├─chrome
+        │                                                       │                      │                 ├─chrome
+        │                                                       │                      │                 ├─chrome
+        │                                                       │                      │                 ├─chrome
+        │                                                       │                      │                 ├─chrome
+        │                                                       │                      │                 ├─chrome
+        │                                                       │                      │                 ├─chrome
+        │                                                       │                      │                 ├─chrome
+        │                                                       │                      │                 ├─chrome
+        │                                                       │                      │                 ├─chrome
+        │                                                       │                      │                 ├─chrome
+        │                                                       │                      │                 └─chrome
+        │                                                       │                      ├─chrome
+        │                                                       │                      └─plasma-browser-
+        │                                                       ├─org_kde_powerde
+        │                                                       ├─baloo_file
+        │                                                       ├─polkit-kde-auth
+        │                                                       ├─xembedsniproxy
+        │                                                       ├─kaccess
+        │                                                       ├─gmenudbusmenupr
+        │                                                       ├─cfw─┬─cfw───cfw
+        │                                                       │     ├─cfw───cfw
+        │                                                       │     ├─cfw
+        │                                                       │     └─cfw───clash-linux
+        │                                                       └─fcitx5
+        ├─bluetoothd
+        ├─wpa_supplicant
+        ├─polkitd
+        ├─udisksd
+        ├─upowerd
+        ├─systemd─┬─(sd-pam)
+        │         ├─dbus-daemon
+        │         ├─dconf-service
+        │         ├─kglobalaccel5
+        │         ├─kactivitymanage
+        │         ├─pulseaudio───gsettings-helpe
+        │         ├─obexd
+        │         ├─kscreen_backend
+        │         ├─krunner─┬─qqmusic─┬─qqmusic───qqmusic
+        │         │         │         ├─qqmusic
+        │         │         │         ├─qqmusic
+        │         │         │         ├─qqmusic
+        │         │         │         ├─qqmusic
+        │         │         │         ├─qqmusic
+        │         │         │         ├─qqmusic
+        │         │         │         └─qqmusic
+        │         │         └─wechat-uos───bwrap───electron─┬─electron───electron
+        │         │                                         ├─electron───electron
+        │         │                                         ├─electron
+        │         │                                         ├─electron
+        │         │                                         ├─electron
+        │         │                                         ├─electron
+        │         │                                         ├─electron
+        │         │                                         ├─electron
+        │         │                                         └─electron
+        │         ├─baloorunner
+        │         ├─chrome_crashpad
+        │         └─kioslave5
+        ├─kwalletd5
+        ├─rtkit-daemon
+        ├─packagekitd
+        ├─kioslave5
+        ├─kioslave5
+        ├─chrome_crashpad
+        ├─chrome_crashpad
+        ├─code─┬─code───code
+        │      ├─code───code
+        │      ├─code
+        │      ├─code
+        │      ├─code─┬─cpptools─┬─cpptools-srv
+        │      │      │          ├─cpptools-srv
+        │      │      │          └─cpptools-srv
+        │      │      └─code
+        │      └─code─┬─code─┬─zsh───pstree
+        │             │      └─cpuUsage.sh───sleep
+        │             └─code
+        ├─chrome_crashpad
+        └─kioslave5

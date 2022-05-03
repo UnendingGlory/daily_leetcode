@@ -4,14 +4,28 @@
 #include <array>
 using namespace std;
 
-void array_func(const size_t& count) {
-    const size_t c = 10;
-    array<int, c> arr;
-    array<int, count> arr2;
-}
+template <int n> 
+struct Sum{
+    enum { sum = Sum<n-1>::sum + n };
+};
+
+template <>
+struct Sum<1> { // 特化1作为终止条件
+    enum{ sum = 1 };
+};
+
+class Solution {
+public:
+    int sumNums(int n) {
+        return Sum<n>::sum;
+    }
+};
+
+
 
 
 int main() {
-    array_func(1);
+    Solution s;
+    s.sumNums(10);
     return 0;
 }
