@@ -8,10 +8,9 @@
 // 因此可以添加第right + 1到结果子串中
 
 // 使用左右指针
-// 如果左右指针的元素重复，则左指针++
-// 否则右指针++
+// 对于每一轮l内，右指针字符不重复，则r++
 // 最长不包含重复字符的子字符串长度即 right - left + 1
-// 可以使用unordered_set
+// 可以使用unordered_set来记录窗口内的字符
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
