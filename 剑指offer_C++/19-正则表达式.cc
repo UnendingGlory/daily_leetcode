@@ -1,9 +1,13 @@
 #include "../header.h"
 // 三种方法
 
-// 回溯法
+// https://leetcode.cn/problems/regular-expression-matching/solution/liang-chong-si-lu-di-gui-dong-tai-gui-hu-gh69/
+
+// Solution1:
+// 递归回溯法
 // 主要需要处理的就是a*这种情况
 // a*即可以当作0个，也可以当作1个a，也可以当作多个a
+// TODO: 修改
 class Solution {
     int s_size, p_size;
 public:
@@ -14,7 +18,10 @@ public:
         // if pattern end in advance
         if (j == p_size) return false;
         if (p[j + 1] == '*') {
-            // next state, one match or any match or no match
+            // next state, 1个匹配 or 多个字符匹配 or 没有匹配
+            // 其实这里的1个匹配的情况可以去除，因为1个匹配就是多个匹配后接0个匹配
+            // 没有匹配：比如 abb 和 a*abb 也是匹配的
+            // s: ab p: .*c
             if (p[j] == s[i] || p[j] == '.' && i < s_size) {
                 return matchRecur(s, p, i + 1, j + 2) || matchRecur(s, p, i + 1, j) || matchRecur(s, p, i, j + 2);
             } else {
@@ -41,7 +48,6 @@ public:
 // dp[i][j] = (dp[i - 1][j] && (s[i - 1] == p[j - 2] || p[j - 2] == '.')
 // || dp[i][j - 2] || dp[i][j - 1]
 // 当p[j-1] = '*', 任意次匹配 || 0次匹配 || 1次匹配 
-// 这也太难了。。
 
 class Solution {
 public:
