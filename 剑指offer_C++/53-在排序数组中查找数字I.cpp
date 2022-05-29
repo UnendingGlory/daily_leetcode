@@ -1,7 +1,7 @@
 #include "header.h"
 
 
-// 统计一个数字在排序数组中出现的次数。
+// 统计一个数字在排序数组中出现的次数，注意，数字可能重复。
 // Solution1: 直接遍历
 class Solution {
 public:
