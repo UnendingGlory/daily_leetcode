@@ -51,7 +51,7 @@ public:
             return;
         }
         for (int i = 0; i < n; ++i) {
-            // 一直到与之前不重复且未被访问过的位置i
+            // 一直到与之前不重复秋且未被访问过的位置i
             if (vis[i] || (i > 0 && s[i] == s[i - 1] && !vis[i - 1])) { 
                 continue;
             }
@@ -66,6 +66,7 @@ public:
     vector<string> permutation(string s) {
         n = s.size();
         vis.resize(n);
+        std::sort(s.begin(), s.end());
         permu(s, 0);
         return ans;
     }
@@ -73,7 +74,7 @@ public:
 
 
 // Solution 3：回溯 (改进，不会产生重复结果)
-// 使用交换来代替哈希表
+// 使用交换来代替哈希表，不需要排序
 // 交换即将每一个元素固定在第x位
 // 去重：字符串存在重复元素时，排列结果也存在重复元素
 // 在固定某位字符的时候，保证“每种字符只在此位出现一次”
