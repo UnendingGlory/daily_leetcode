@@ -93,6 +93,18 @@ void unguardedSort(int *arr, int l, int r)
     unguardedSort(arr, x, r);
 }
 
+// unguarded_partition 另一种写法
+int partition(vector<int>& a, int l, int r) {
+    int x = a[r], i = l - 1;
+    for (int j = l; j < r; ++j) {
+        if (a[j] <= x) {
+            swap(a[++i], a[j]);
+        }
+    }
+    swap(a[i + 1], a[r]);
+    return i + 1;
+}
+
 int main()
 {
     int a[10] = {1, 4, 231, 6, 213, 5, 5};

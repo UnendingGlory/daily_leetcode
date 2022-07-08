@@ -11,7 +11,7 @@ public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
         ListNode *p = headA, *q = headB;
         // 若两个链表不相交，则p和q第二遍会指向最后一个空指针
-        // 即走了a + b + 2c，空指针处相遇
+        // 即走了a + b，空指针处相遇
         while (p != q) {
             if(p == nullptr) {
                 p = headB;

@@ -9,7 +9,8 @@ public:
         for(int i : arr)
         {
             pq.push(i);
-            if(pq.size() > k) pq.pop(); // 保持大小在k
+            // 将堆顶最大元素pop出，保持大小在k
+            if(pq.size() > k) pq.pop(); 
         }
         vector<int> ans;
         while(k--)
