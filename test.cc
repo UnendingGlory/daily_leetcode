@@ -1,31 +1,21 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <array>
-using namespace std;
-
-template <int n> 
-struct Sum{
-    enum { sum = Sum<n-1>::sum + n };
-};
-
-template <>
-struct Sum<1> { // 特化1作为终止条件
-    enum{ sum = 1 };
-};
+#include "header.h"
 
 class Solution {
 public:
-    int sumNums(int n) {
-        return Sum<n>::sum;
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        std::priority_queue<pair<int, int>> pq; // 大根堆
+        for (int i = 0; i < k; ++i) {
+            pq.emplace(nums[i], i);
+        }
+        vector<int> ans = {pq.top().first};
+        // 尾端往后挪
+        for (int i = k; i < nums.size(); ++i) {
+            pq.emplace(nums[i], i);
+            while (pq.top().second <= i - k) {
+                pq.pop();
+            }
+            ans.emplace_back(pq.top().first);
+        }
+        return ans;
     }
 };
-
-
-
-
-int main() {
-    Solution s;
-    s.sumNums(10);
-    return 0;
-}
