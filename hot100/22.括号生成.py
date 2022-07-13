@@ -4,6 +4,7 @@
 # 如果 left >= right，就填充左括号
 # 如果 left < right，即可以填充左括号又可以填充右括号
 # 如果 left == right = 0，退出递归
+from typing import List
 
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:

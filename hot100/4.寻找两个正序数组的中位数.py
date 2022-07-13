@@ -20,8 +20,7 @@
 # 偶数需要最后一次和上一次遍历的结果
 # 均要遍历 floor((m + n) / 2) + 1 次
 
-from turtle import right
-from numpy import Infinity
+from typing import List
 
 
 class Solution:

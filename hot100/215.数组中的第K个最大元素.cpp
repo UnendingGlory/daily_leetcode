@@ -63,6 +63,7 @@ public:
 // Solution3: 大根堆。
 // 不需要进行堆排，只需要建立一个大根堆后，进行 k - 1次删除操作。
 // 那么堆顶元素即为答案。
+// 时间复杂度：O(nlogk)
 class Solution {
 public:
     int findKthLargest(vector<int>& nums, int k) {

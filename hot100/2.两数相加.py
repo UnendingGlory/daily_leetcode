@@ -1,6 +1,5 @@
-from tkinter.messagebox import NO
 from header import *
-
+from typing import Optional
 # 非空的链表，表示两个非负的整数。
 # 每位数字都是按照逆序方式存储的。
 # 返回一个表示和的链表

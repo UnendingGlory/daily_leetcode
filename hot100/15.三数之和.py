@@ -27,8 +27,8 @@
 # 如果 first + second + third > 0
 # 该指针从右到左一直移动即可。
 
-
 # 总结：先对数组排序，然后固定一个数a，然后双指针 b、c 从两边从中间靠。
+from typing import List
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         n = len(nums)

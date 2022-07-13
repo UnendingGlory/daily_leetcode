@@ -2,6 +2,7 @@
 # Merge操作
 # 就地 merge，新定义一个哑结点。
 from header import ListNode
+from typing import Optional
 
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:

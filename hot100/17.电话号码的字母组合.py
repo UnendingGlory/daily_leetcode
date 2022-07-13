@@ -1,5 +1,6 @@
 # 九键字母组合
 # 排列问题，采用递归方法
+from typing import List
 
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:

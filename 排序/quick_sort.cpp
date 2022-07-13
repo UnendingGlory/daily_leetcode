@@ -93,16 +93,21 @@ void unguardedSort(int *arr, int l, int r)
     unguardedSort(arr, x, r);
 }
 
-// unguarded_partition 另一种写法
-int partition(vector<int>& a, int l, int r) {
-    int x = a[r], i = l - 1;
-    for (int j = l; j < r; ++j) {
-        if (a[j] <= x) {
-            swap(a[++i], a[j]);
+// unguarded_partition 另一种写法（优先使用这种）
+int partition(vector<int>& arr, int l, int r) {
+    int random_idx = rand() % (r - l + 1) + l;
+    int pivot = arr[random_idx];
+    swap(arr[l], arr[random_idx]); // 要记得交换位置
+
+    int x = l; // 循环 + 单指针法
+    for (int i = l + 1; i <= r; ++i) {
+        if (arr[i] >= pivot) {
+            swap(arr[x + 1], arr[i]);
+            x++;
         }
     }
-    swap(a[i + 1], a[r]);
-    return i + 1;
+    swap(arr[l], arr[x]);
+
 }
 
 int main()
