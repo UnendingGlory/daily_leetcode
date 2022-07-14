@@ -19,3 +19,8 @@ public:
         return ans;
     }
 };
+
+int main() {
+    std::cout << std::hash<string> h("aaa") << std::endl;
+    return 0;
+}
