@@ -35,7 +35,7 @@ class Solution:
         dp = [[False] * (target+1) for _ in range(n)]
         for i in range(n):
             dp[i][0] = True
-        dp[0][nums[0]] = True
+        dp[0][nums[0]] = True # 判断 2已经保证了数组中的值均<= target
         for i in range(1, n):
             for j in range(1, target+1):
                 if j < nums[i]:

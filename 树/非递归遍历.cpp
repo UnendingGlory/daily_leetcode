@@ -80,7 +80,7 @@ public:
 
 // Morris 中序遍历。
 // 中序遍历 左根右。
-// 1情况中添加答案，2②情况也添加答案，代表该结点已经被线索化过。
+// 1情况中添加答案，2②情况也添加答案，代表该结点已经被线索化过，再访问根结点。
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
