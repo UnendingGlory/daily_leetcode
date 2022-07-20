@@ -19,7 +19,7 @@ class Solution:
         m, n = len(word1), len(word2)
         if m == 0 or n == 0:
             return m | n
-        dp = [[101] * (n+1) for _ in range(m+1)]
+        dp = [[101] * (n+1) for _ in range(m+1)] # 最大编辑距离，应该设为INT_MAX
 
         for i in range(m+1): # 0 代表空串
             dp[i][0] = i
