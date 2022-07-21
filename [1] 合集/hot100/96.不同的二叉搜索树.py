@@ -21,7 +21,23 @@ class Solution:
                 G[i] += G[j-1] * G[i-j]
         return G[n]
 
-# Solution2: 数学 卡特兰数 https://baike.baidu.com/item/%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0。
+# Solution2: 记忆化递归（与 dp等价）
+class Solution:
+    def numTrees(self, n: int) -> int:
+        ans = 0
+        memo = dict()
+        memo[0] = memo[1] = 1
+        def recur(n):
+            if n in memo:
+                return memo[n]
+            sum = 0
+            for i in range(1, n+1):
+                sum += recur(i-1) * recur(n-i)
+            memo[n] = sum
+            return sum
+        return recur(n)
+
+# Solution3: 数学 卡特兰数 https://baike.baidu.com/item/%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0。
 # 卡特兰数满足递推式：h(n)= h(0) * h(n-1) + h(1) * h(n-2) + ... + h(n-1) * h(0) (n≥2)。
 # 和上面的递推公式对应。
 # 卡特兰数另类递推式：h(n+1) = h(n) * (4*n + 2) / (n + 2)。
