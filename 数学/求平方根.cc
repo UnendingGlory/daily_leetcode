@@ -25,6 +25,26 @@ float sqrt(float x) {
     return mid;
 }
 
+// zoom 笔试1
+// 计算并输出根号 23，不使用库函数。
+// 准确输出小数点后10位
+// 二分 + 精确度约束, diff即精确度约束
+// 精确度约束为 1e-11
+double binarySqrt() {
+    const double diff = 1e-10;
+    double l = 4, r = 5; // 根号 23值在 4和 5 之间。
+    double mid;
+    while (r - l > diff) {
+        mid = l + (r - l) / 2;
+        if (mid * mid < 23) {
+            l = mid;
+        } else {
+            r = mid;
+        }
+    }
+    return mid;
+}
+
 
 // Solution2：梯度下降法
 // 转换思路，即 y = x^2，给定y，求解x

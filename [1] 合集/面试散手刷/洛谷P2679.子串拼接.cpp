@@ -51,8 +51,8 @@
 // 记得要取余，余数分配律：
 // (a + b) % c = (a % c + b % c) % c
 // (a + b + c) % d = ((a + b) % c + d % c) % c = ((a + b) % c + d) % c
-const int mod = 1e9 + 7;
 int solution(int n, int m, int k, char A[], char B[]) {
+    const int mod = 1e9 + 7;
     int dp[n + 1][m + 1][k + 1][2];
     memset(dp, 0, sizeof(dp));
     for (int i = 0; i <= n; ++i) {
@@ -77,35 +77,32 @@ int solution(int n, int m, int k, char A[], char B[]) {
 }
 
 // 滚动数组进行空间复杂度优化。
-// 上述方法空间复杂度：O(nmk)，最多需要开辟 1000 * 200 * 200 * 2 = 8 * 10^7的整数空间，
+// 上述方法时间复杂度：O(nmk)，最多需要开辟 1000 * 200 * 200 * 2 = 8 * 10^7的整数空间，
 // 即 (32 * 10^7) B = 300MB的空间，过大。
-// 观察上述状态转移方程，第一维 i的状态均由 i - 1转移得来，因此可以将第一维滚动掉。
-// 注意，不可以直接将第一维删除采用覆盖的形式，这是错误的，因为 对于当前i，所有的 j和 p都会用到 i - 1。
-// 第一维保留两个，反复交替覆盖即可。
-// 空间复杂度：O(mk)
+// 观察上述状态转移方程，i的状态均由 i - 1转移得来，因此只需要存储
 int solution_mem(int n, int m, int k, char A[], char B[]) {
-    int dp[2][m + 1][k + 1][2];
+    const int mod = 1e9 + 7;
+    int dp[m + 1][k + 1][2];
     memset(dp, 0, sizeof(dp));
-    dp[0][0][0][0] = dp[1][0][0][0] = 1;
-    int cur = 1, last;
+    for (int i = 0; i <= n; ++i) {
+        [0][0][0] = 1;
+    }
     for (int i = 1; i <= n; ++i) {
-        last = cur ^ 1;
         for (int j = 1; j <= m; ++j) {
             for (int p = 1; p <= k; ++p) {
                 if (A[i] == B[j]) {
-                    dp[cur][j][p][0] = (dp[last][j][p][0] + dp[last][j][p][1]) % mod;
-                    dp[cur][j][p][1] = ((dp[last][j - 1][p][1] + dp[last][j - 1][p - 1][0]) % mod \
-                                     + dp[last][j - 1][p - 1][1]) % mod;
+                    dp[j][p][0] = (dp[j][p][0] + dp[j][p][1]) % mod;
+                    dp[j][p][1] = ((dp[j - 1][p][1] + dp[j - 1][p - 1][0]) % mod \
+                                     + dp[j - 1][p - 1][1]) % mod;
                 } else {
-                    dp[cur][j][p][0] = (dp[last][j][p][0] + dp[last][j][p][1]) % mod;
-                    dp[cur][j][p][1] = 0;
+                    dp[j][p][0] = (dp[j][p][0] + dp[j][p][1]) % mod;
+                    dp[j][p][1] = 0;
                 }
             }
         }
-        cur = last;
     }
 
-    return (dp[last^1][m][k][0] + dp[last^1][m][k][1]) % mod;
+    return (dp[m][k][0] + dp[m][k][1]) % mod;
 }
 
 int main() {

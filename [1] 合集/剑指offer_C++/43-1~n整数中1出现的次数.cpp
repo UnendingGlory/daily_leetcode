@@ -48,3 +48,47 @@ public:
         return ans;
     }
 };
+
+// 题目变种：
+// 计算 1-n 的整数中，数字 x出现了多少次。
+// 1 <= n <= 1000000, 0 <= x <= 9。
+// 思路类似，只是对于 x = 0的情况要特殊处理。
+// 假设当前位为 cur，cur的基数记为 base。
+// 假设 cur之前的数为 a，之后的数为 b。
+// 如果 cur > x，左边数字范围: [0, a]，右边数字范围：[0, base]
+//     种类数即 (a + 1) * 100 = (a + 1) * base
+//     cur = x，左边数字范围: [0, a - 1]，右边数字范围: [0, base]
+//                                  a, 右边数字范围：[0, b]
+//     种类数即 a * base + (b + 1)
+//     cur < x，左边数字范围: [0, a - 1]，右边数字范围：[0, 99]
+//     种类数即 a * base
+// 如果 x == 0，需要特殊处理，
+// 如果 x = 0，cur之前必须要有数，即 cur > 0, 左边数字范围 [1, a]。
+//                        cur = 0, 左边数字范围 [1, a - 1]。
+int solution(int n, int x) {
+    int base = 1, cur, a, b;
+    int ans = 0;
+    while (base <= n) {
+        a = n / base / 10;
+        cur = (n / base) % 10;
+        b = n % base;
+        if(x) { // x != 0的情况
+            if (cur > x) {
+                ans += (a + 1) * base;
+            } else if (cur == x) {
+                ans += a * base + (b + 1);
+            } else {
+                ans += a * base;
+            }
+        } else { // x = 0的情况要特殊处理
+            if (cur > 0) {
+                ans += a * base;
+            } else {
+                ans += (a - 1) * base + (b + 1);
+            }
+        }
+
+        base *= 10;
+    }
+    return ans;
+}

@@ -3,7 +3,7 @@
 
 # 贪心算法。
 # 如果 x 是一个可以到达的位置，那么 x + nums[i] 也是可以到达的位置。
-# 维护一个变量 mostright。
+# 维护一个变量 mostright，动态更新即可。
 from typing import List
 
 class Solution:

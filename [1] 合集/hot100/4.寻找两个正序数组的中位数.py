@@ -67,7 +67,7 @@ class Solution:
 # 时间复杂度：O(log(m + n))，空间复杂度：O(1)
 
 # 注意有三种情况需要特殊处理。
-# 1. 如果 A[k/2-1] 和 B[k/2-1]越界，那么可以选取对应数组的最后一个元素。
+# 1. 如果 A[k/2-1] 或 B[k/2-1]越界，那么可以选取对应数组的最后一个元素。
 #    同时 k 需要减去排除数的个数，而不是正常情况下的 k / 2，合并为 k 减去排除数个数即可。
 # 2. 如果一个数组为空，说明该数组中的所有元素都被排除，可以直接返回另一个数组中第 k 小的元素。
 # 3. 如果 k = 1，我们返回两个数组首元素的最小值即可。
@@ -101,7 +101,7 @@ class Solution:
                 newIndex1 = min(index1 + k // 2 - 1, m - 1)
                 newIndex2 = min(index2 + k // 2 - 1, n - 1)
                 pivot1, pivot2 = nums1[newIndex1], nums2[newIndex2]
-                if pivot1 <= pivot2: # 排除nums1中 newIndex1前的所有
+                if pivot1 <= pivot2: # 排除nums1中 newIndex1前的所有 (包括newIndex1)
                     k -= newIndex1 - index1 + 1
                     index1 = newIndex1 + 1
                 else:
@@ -176,8 +176,8 @@ class Solution:
         left_max, right_min = 0, 0 # 前一部分最大值和后一部分最小值
 
         while l <= r:
-            i = l + ((r - l) >> 1) # 二分i
-            j = (m + n + 1) // 2 - i
+            i = l + ((r - l) >> 1) # 数组 A上，二分 i
+            j = (m + n + 1) // 2 - i # 对应数组 B的位置 j
 
             left_i = (-infinity if i == 0 else nums1[i-1]) # A[i-1]
             left_j = (-infinity if j == 0 else nums2[j-1]) # B[j-1]

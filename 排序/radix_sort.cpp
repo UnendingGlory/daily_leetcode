@@ -3,6 +3,7 @@
  *  @author     Wilosn.Wang
  *  @date       26  Nov 2020
  *  @remark     This code is a template for radix/bucket sort.
+				radix sort is an algorithm for sort.
 				radix sort过程：先按个位数分配进10个桶中，然后按顺序收集，再按十位数分配
 				时间复杂度：O(d * n)，d为位数，n为元素个数。
 				虽然是线性时间复杂度，但是经过分析可以知道，在数据量没那么庞大的情况下还
@@ -10,7 +11,7 @@
  *  @note
  ***************************************************************************/
 // g++ .\radix_sort.cpp -I "..\" -o radix_sort
-#include "header.h"
+#include "../header.h"
 
 // 模板类，用来打印各类数据（只要该类重载了运算符<<即可）
 template <typename T>
@@ -58,7 +59,8 @@ int main()
 {
 	vector<int> nums {1, 4, 22, 13, 45, 21};
 	vector<int> nums2 {100, 3, 2, 1};
-	for_each(nums2.begin(), nums2.end(), display<int>());
+	radix_sort(nums);
+	for_each(nums.begin(), nums.end(), display<int>());
 	cout << '\n';
 	radix_sort(nums2);
 	for_each(nums2.begin(), nums2.end(), display<int>());

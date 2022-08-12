@@ -1,7 +1,7 @@
 // 有序数组二分查找 logn
 // 可以调用algorithm中的lower_bound函数
 // 若是第一个大于的元素，则调用upper_bound函数
-#include "header.h"
+#include "../header.h"
 using namespace std;
 
 // 二分查找解决问题o(logn)
@@ -23,9 +23,25 @@ int bi_search(int a[], int val, int left, int right)
     return -1;
 }
 
+// 版本2
+int bi_search_v2(int a[], int val, int left, int right)
+{
+    while(left < right)
+    {
+        int mid = (left + right) >> 1;
+        if(a[mid] >= val) // 若是大于，这里改成>
+        {
+            right = mid;
+        }
+        else left = mid + 1;
+    }
+    return a[left] >= val ? left : -1;
+}
+
 int main()
 {
     int a[10] = {1, 3, 4, 5, 7, 8, 10, 12};
     printf("%d\n", bi_search(a, 6, 0, 7));
+    printf("%d\n", bi_search_v2(a, 6, 0, 7));
     return 0;
 }

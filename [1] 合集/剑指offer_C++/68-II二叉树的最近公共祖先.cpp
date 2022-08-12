@@ -44,3 +44,29 @@ public:
         return root;
     }
 };
+
+// TODO: 非递归版
+// Solution1: 可以遍历两遍树生成两个链表，找到两个链表的第一个公共结点即可（68-III题中有实现）。
+// Solution2: 基于非递归版后序遍历。使用栈存储可能的最近公共祖先，往下遍历时，如果是靠近更下面的 LCA就更新 LCA。
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        stack<TreeNode*> stk;
+        if (root) stk.push(root);
+        while (!stk.empty()) {
+            root = stk.top(); stk.pop();
+            if (root) {
+                stk.push(root);
+                stk.push(nullptr);
+                if (root->right) stk.push(root->right);
+                if (root->left) stk.push(root->left);
+            } else {
+                root = stk.top(); stk.pop();
+                if ((root->left == p &;;&;; root->right == q) ||
+                    (root->left == q &;;&;; root->right == p)) return root;
+                if (root == p &;;&;; (root->left == q || root->right == q)) return root;
+                if (root == q &;;&;; (root->left == p || root->right == p)) return root;
+                if (root->left == p || root->right == p) p = root;
+                if (root->left == q || root->right == q) q = root;
+            }
+        }
+        return nullptr;
+    }

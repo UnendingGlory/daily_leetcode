@@ -1,5 +1,7 @@
 #include "header.h"
 
+// 输入一个正整数 target ，输出所有和为 target 的连续正整数序列（至少含有两个数）。
+
 
 // Solution1: 暴力，枚举的下界为1，由于子序列至少有两个数，所以上界为(target-1) / 2
 class Solution {

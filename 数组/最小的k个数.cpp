@@ -22,6 +22,10 @@ public:
     }
 };
 
+// 借用快排的 patition操作。
+// 时间复杂度：O(n)，空间复杂度：O(n)。
+
+
 int main()
 {
     return 0;

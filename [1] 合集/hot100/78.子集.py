@@ -31,11 +31,12 @@ class Solution:
             if i == n:
                 ans.append(path[:]) # 深拷贝
                 return
-
+            dfs(i + 1) # 跳过该位置
+            
             path.append(nums[i]) # 选择该位置
             dfs(i + 1)
             path.pop()
-            dfs(i + 1) # 跳过该位置
+
         dfs(0)
         return ans
 
