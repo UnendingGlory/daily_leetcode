@@ -1,120 +1,156 @@
-#include <stdio.h>
-#include <cstring>
+#include "header.h"
 
-// 有两个仅包含小写英文字母的字符串 A 和 B。
-// 现在要从字符串 A 中取出 k 个互不重叠的非空子串，然后把这 k 个子串按照其在字符串 A 中出现的顺序依次连接起来得到一个新的字符串。
-// 请问有多少种方案可以使得这个新串与字符串 B 相等？
-// 注意：子串取出的位置不同也认为是不同的方案。
+class Solution {
+public:
+    int dx[4] = {-1, 0, 1, 0};
+    int dy[4] = {0, -1, 0, 1};
+    int maxDistance(vector<vector<int>>& grid) {
+        int row = grid.size(), col = grid[0].size();
+        queue<pair<int, int>> q;
 
-// 输入格式
-// 第一行是三个正整数 n, m, k，分别表示字符串 A 的长度，字符串 B 的长度，以及问题描述中所提到的 k，每两个整数之间用一个空格隔开。
-// 第二行包含一个长度为 n 的字符串，表示字符串 A。
-// 第三行包含一个长度为 m 的字符串，表示字符串 B。
-// 1 <= n <= 1000, 1 <= m <= 200, 1 <= k <= m
-// 由于答案可能很大，所以这里要求输出答案对 10000000071000000007 取模的结果。
+        // 先将所有的陆地入队
+        for (int i = 0; i < row; ++i) {
+            for (int j = 0; j < col; ++j) {
+                if (grid[i][j] == 1) {
+                    q.push({i, j});
+                }
+            }
+        }
 
-// 输入        输出
-// 6 3 1       2
-// aabaab 
-// aab
+        // 从每个陆地开始，一圈圈遍历海洋，最后遍历到的海洋就是离陆地最远的海洋
+        int x, y;
+        bool hasOcean = false;
+        pair<int, int> point = nullptr;
+        while (!q.empty()) {
+            point = q.top();
+            q.pop();
+            // 将四周的海洋入队
+            for (int i = 0; i < 4; ++i) {
+                x = point.first + dx[i];
+                y = point.second + dy[i];
+                if (x < 0 || x >= row || y < 0 || y >= col || grid[x][y] != 0) {
+                    continue;
+                }
+                // 直接修改原数组避免了设置访问数组
+                grid[x][y] = grid[point.first][point.second] + 1;
+                hasOcean = true;
+                q.push({x, y});
+            }
+        }
 
-// 输入        输出
-// 6 3 2       7
-// aabaab 
-// aab
-
-// Solution: 暴力肯定是不合理的，三维 DP动态规划。
-// 首先考虑设计状态。为了保证无后效性的一位一位往后推，我们需要记录：
-// 1. i，记录推到 A串的哪一个位置，即 A的前 i个字符。
-// 2. j，记录匹配 B串的哪几个字符，由于按照原串顺序，相当于是匹配 B的前 j个字符。
-// 3. p，记录划分了几个子串, p <= k。
-// 4. v，放了方便转移，标记 0 / 1，即 A的第 i个字符是否选入。
-//    如果选入，可能拼接到前面的子串，那么 i - 1个字符必须选入，p不变
-//            也可以单独成为一个子串，那么 i - 1个字符可选可不选，p需要增加 1。
-// 以 f(i, j, p, v) 代表字符串 A的前 i位为止使用 p个字符串匹配和字符串 B的前 j位，
-// 且第 i个位置选或不选 (v)的方案数。
-// 状态转移方程：
-// A[i] = B[j]时,
-// 1. f(i, j, p, 0)，即第 i位不选，那么就是前一位选和不选方案数之和。
-//    即 f(i, j, p, 0) = f(i - 1, j, p, 0) + f(i - 1, j, p, 1)
-// 2. f(i, j, p, 1)，即第 i位选择，那么有如下几种情况。
-//    ① A[i]拼接到前面的子串, i - 1位必须选择，且p不变，即 f(i - 1, j - 1, p, 1)，。
-//    ② A[i]单独成为一个子串，i - 1位可选可不选，p增 1。
-//      f(i - 1, j - 1, p - 1, 0) + f(i - 1, j - 1, p - 1, 1)
-//    综合即 f(i, j, p, 1) = f(i - 1, j - 1, p, 1) + f(i - 1, j - 1, p - 1, 0) + f(i - 1, j - 1, p - 1, 1)
-// A[i - 1] != B[j - 1]时，
-// 1. f(i, j, p, 0) = f(i - 1, j, p, 0) + f(i - 1, j, p, 1)。
-// 2. f(i, j, p, 1)，由于 A[i] != B[j]，所以 f(i, j, p, 1) = 0
-// 边界条件：B串为空且 k是0时，无论 A串多长，结果均为1。
-//         f(i, 0, 0, 0) = 1，其余皆为 0。
-// 最后结果即 f(n, m, k, 0) + f(n, m, k, 1)
-// 记得要取余，余数分配律：
-// (a + b) % c = (a % c + b % c) % c
-// (a + b + c) % d = ((a + b) % c + d % c) % c = ((a + b) % c + d) % c
-const int mod = 1e9 + 7;
-int solution(int n, int m, int k, char A[], char B[]) {
-    int dp[n + 1][m + 1][k + 1][2];
-    memset(dp, 0, sizeof(dp));
-    for (int i = 0; i <= n; ++i) {
-        dp[i][0][0][0] = 1;
+        // 没有陆地或者海洋
+        if (point == nullptr || !hasOcean) {
+            return -1;
+        }
+        
+        // 返回最后一次遍历到海洋的距离
+        return grid[point.first][point.second] - 1;
     }
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 1; j <= m; ++j) {
-            for (int p = 1; p <= k; ++p) {
-                if (A[i] == B[j]) {
-                    dp[i][j][p][0] = (dp[i - 1][j][p][0] + dp[i - 1][j][p][1]) % mod;
-                    dp[i][j][p][1] = ((dp[i - 1][j - 1][p][1] + dp[i - 1][j - 1][p - 1][0]) % mod \
-                                     + dp[i - 1][j - 1][p - 1][1]) % mod;
-                } else {
-                    dp[i][j][p][0] = (dp[i - 1][j][p][0] + dp[i - 1][j][p][1]) % mod;
-                    dp[i][j][p][1] = 0;
+};
+
+void dijkstra(int s) {
+    memset(vis, 0, sizeof(vis));
+    for (int i = 0; i < n; ++i) {
+        d[i] = INF;
+    }
+    d[s] = 0;
+    using pii = pair<int, int>;
+    priority_queue<pii, vector<pii>, greater<pii>> pq;
+    pq.push({0, s});
+    while (!pq.empty()) {
+        pii x = pq.top();
+        pq.pop();
+        int u = x.first;
+        if (vis[u]) { // 该结点已访问过
+            continue;
+        }
+        vis[u] = true;
+        for (int j = 0; j < adj[u].size(); ++j) {
+            int v = adj[u][j].v;
+            if (d[u] + adj[u][v].dis < d[v]) {
+                d[v] = d[u] + adj[u][v].dis;
+                pq.push({d[v], v}); // 能访问到的结点入队
+                // father[v] = u;
+            }
+        }
+    }
+}
+
+bool Bellman(int s) {
+    for (int i = 0; i < n; ++i) {
+        d[i] = INF;
+    }
+    d[s] = 0;
+    memset(inq, false, sizeof(q)); // 结点是否已经在队列中
+    memset(cnt, 0, sizeof(cnt)); // 每个结点入队的次数
+    queue<int> Q;
+    Q.push(s);
+    inq[s] = true;
+    cnt[s]++;
+    while (!Q.empty()) {
+        int u = Q.front();
+        Q.pop();
+        inq[u] = false; // 出队了
+        // 遍历 u的所有邻接边
+        for (int j = 0; j < Adj[u].size(); ++j) {
+            int v = Adj[u][j].v;
+            int dis = Adj[u][j].dis;
+            if (d[u] + dis < d[v]) {
+                d[v] = d[u] + dis;
+                if (!inq[v]) {
+                    Q.push(v);
+                    if (++cnt[v] > n - 1) {
+                        return false;
+                    }
+                    inq[v] = true;
                 }
             }
         }
     }
-
-    return (dp[n][m][k][0] + dp[n][m][k][1]) % mod;
+    return true;
 }
 
-// 滚动数组进行空间复杂度优化。
-// 上述方法空间复杂度：O(nmk)，最多需要开辟 1000 * 200 * 200 * 2 = 8 * 10^7的整数空间，
-// 即 (32 * 10^7) B = 300MB的空间，过大。
-// 观察上述状态转移方程，第一维 i的状态均由 i - 1转移得来，因此可以将第一维滚动掉。
-// 注意，不可以直接将第一维删除采用覆盖的形式，这是错误的，因为 对于当前i，所有的 j和 p都会用到 i - 1。
-// 第一维保留两个，反复交替覆盖即可。
-// 空间复杂度：O(mk)
-int solution_mem(int n, int m, int k, char A[], char B[]) {
-    int dp[2][m + 1][k + 1][2];
-    memset(dp, 0, sizeof(dp));
-    dp[0][0][0][0] = dp[1][0][0][0] = 1;
-    int cur = 1, last;
-    for (int i = 1; i <= n; ++i) {
-        last = cur ^ 1;
-        for (int j = 1; j <= m; ++j) {
-            for (int p = 1; p <= k; ++p) {
-                if (A[i] == B[j]) {
-                    dp[cur][j][p][0] = (dp[last][j][p][0] + dp[last][j][p][1]) % mod;
-                    dp[cur][j][p][1] = ((dp[last][j - 1][p][1] + dp[last][j - 1][p - 1][0]) % mod \
-                                     + dp[last][j - 1][p - 1][1]) % mod;
-                } else {
-                    dp[cur][j][p][0] = (dp[last][j][p][0] + dp[last][j][p][1]) % mod;
-                    dp[cur][j][p][1] = 0;
+void Floyd() {
+    for (int k = 0; k < n; ++k) {
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (dis[i][k] != INF && dis[k][j] != INF) {
+                    dis[i][j] = min(dis[i][j], dis[i][k] + dis[k][j]);
                 }
             }
         }
-        cur = last;
-    }
-
-    return (dp[last^1][m][k][0] + dp[last^1][m][k][1]) % mod;
+    } 
 }
+
+// Solution2：优化
+class Solution {
+public:
+    int subarraysDivByK(vector<int>& nums, int k) {
+        int n = nums.size();
+        vector<int> pre(n + 1);
+        int sum = 0;
+        for (int i = 1; i <= n; ++i) {
+            sum += nums[i - 1];
+            pre[i] = sum;
+            cout << pre[i] << " ";
+        }
+        cout << endl;
+        int ans = 0;
+        for (int i = 0; i <= n; ++i) {
+            for (int j = i + 1; j <= n; ++j) {
+                if ((pre[j] - pre[i]) % k == 0) {
+                    ++ans;
+                }
+            }
+        }
+        return ans;
+    }
+};
 
 int main() {
-    int n, m, k;
-    scanf("%d %d %d", &n, &m, &k);
-    char A[1005], B[205];
-    // 忽略 0位置，指针从 A+1和 B+1位置开始读入
-    scanf("%s%s", A + 1, B + 1);
-    int ans = solution_mem(n, m, k, A, B);
-    printf("%d\n", ans);
+    vector<int> vec{4, 5, 0, -2, -3, 1};
+    int k = 5;
+    Solution s;
+    cout << s.subarraysDivByK(vec, k) << endl;
     return 0;
 }

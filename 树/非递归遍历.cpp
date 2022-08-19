@@ -49,45 +49,44 @@ public:
     }
 };
 
-// 后序非递归
-// 后序遍历访问一个结点的时候需要满足两个条件，一是该结点右孩子为空，二是该结点的右孩子已经被访问过，这两个条件满足一个则表示该结点可以被访问。
-vector<int> PostOrder(TreeNode* root)
-{
-    vector<int> result;
-    stack<int> s;
-    TreeNode* cur = root;
-    TreeNode* pre = NULL;
-
-    if (root == NULL)
-        return result;
-    
-    // 走到最左孩子
-    while (cur) { 
-        s.push(cur);
-        cur = cur->left;
-    }
-
-    while (!s.empty())
-    {
-        cur = s.top();
-        if (cur->right == NULL || cur->right == pre) { 
-            // 当一个结点的右孩子为空或者被访问过的时候则表示该结点可以被访问
-            result.push_back(cur->val);
-            pre = cur;
-            s.pop();
-        }
-        else {
-            // 否则访问右孩子
-            cur = cur->right;
-            while (cur) // 递归打入左孩子
-            {
+// 后序单栈非递归
+// 后序遍历访问一个结点的时候需要满足两个条件之一。
+// 1. 该结点右孩子为空。
+// 2. 该结点的右孩子已经被访问过，如何判断？
+//    非递归中，对于某个结点，总是先访问左子树，后访问右子树。
+//    非递归时，总是先沿着左子树访问到底，左子树已经被访问过不需要被判断。
+//    定义一个右孩子访问结点中间变量 pre。
+//    如果当前结点 cur == pre，则代表左节点和右节点均已被访问。
+// 性质：当使用非递归后序遍历时，栈中的元素就是当前节点到根节点的路径
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        if (root == NULL)
+            return {};
+        vector<int> ans;
+        stack<TreeNode *> s;
+        TreeNode* cur = root, *pre = nullptr;
+        
+        while (cur != nullptr || !s.empty()) {
+            while (cur != nullptr) { // 走到最左孩子
                 s.push(cur);
                 cur = cur->left;
             }
+            cur = s.top();
+            s.pop();
+            if (cur->right == nullptr || cur->right == pre) { 
+                // 当一个结点的右孩子为空或者被访问过的时候则表示该结点可以被访问
+                ans.push_back(cur->val);
+                pre = cur;
+                cur = nullptr; // 防止循环访问左子节点
+            } else { // 否则访问右孩子
+                s.push(cur); // 可以访问右孩子的情况下要把该结点重新打回栈
+                cur = cur->right;
+            }
         }
+        return ans;
     }
-    return result;
-}
+};
 
 // Morris遍历（动态线索二叉树）
 // 可将树的遍历的空间复杂度降为 O(1)

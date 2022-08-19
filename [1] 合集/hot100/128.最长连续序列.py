@@ -2,9 +2,7 @@
 # 输入：[100, 4, 200, 1, 3, 2]
 # 输出：[4, 1, 3, 2] -> 4
 # 实现时间复杂度为 O(n) 的算法解决此问题
-import faulthandler
-from gettext import find
-from typing import List, Union
+from typing import List
 
 
 # Solution1: 暴力算法。
@@ -26,12 +24,14 @@ class Solution:
 
 # Solution2：时间复杂度优化。
 # 有很多不必要的枚举，如果已知检查过一个 x, x+1, x+2 ..., x+y的连续序列。
-# 对于另一个数y，却重新从 x+1, x+2 或者 x+y 处开始匹配，
+# 对于另一个数，我们却重新从 x+1, x+2 或者 x+y 处开始匹配，
 # 那么结果肯定不会优于枚举 x为起点的答案。
 # 那么怎么判断是否跳过呢？
 # 我们将枚举到的数使用一个 set 记录下来。
 # 由于我们要枚举的数 x 一定是在数组中不存在前驱数 x-1 的。
-# 我们每次在哈希表中检查是否存在 x-1 即能判断是否需要跳过了。
+# 因为如果存在 x - 1，那么按照上面的分析，x一定是在哈希表中的。
+# 所以我们每次在哈希表中检查是否存在 x-1 即能判断是否需要跳过了。
+# 时间复杂度：O(n)
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
         longest_streak = 0

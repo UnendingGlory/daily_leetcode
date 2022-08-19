@@ -45,10 +45,53 @@ public:
     }
 };
 
-// TODO: 非递归版
+// TODO: 后序遍历非递归版。
 // Solution1: 可以遍历两遍树生成两个链表，找到两个链表的第一个公共结点即可（68-III题中有实现）。
-// Solution2: 基于非递归版后序遍历。使用栈存储可能的最近公共祖先，往下遍历时，如果是靠近更下面的 LCA就更新 LCA。
-TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+// Solution2: 基于非递归版后序遍历。见目录： 树/非递归遍历.cpp。
+//            存储可能的最近公共祖先，后序遍历时，将 p和 q的父结点向上层传递即可。    
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if (root == nullptr) {
+            return nullptr;
+        }
+        stack<TreeNode *> s;
+        TreeNode *pre = nullptr, *cur = root;
+        while (cur != nullptr || !s.empty()) {
+            // 找到最左侧子结点
+            while (cur != nullptr) {
+                s.push(cur);
+                cur = cur->left;
+            }
+            cur = s.top();
+            s.pop();
+            // 如果该结点可以访问
+            if (cur->right == nullptr || cur->right == pre) {
+                // 可以访问时，再将 p和 q的父结点向上层传递。
+                if (cur->left == p || cur->right == p) {
+                    p = cur;
+                }
+                if (cur->left == q || cur->right == q) {
+                    q = cur;
+                }
+                if (p == cur && q == cur) {
+                    return cur;
+                }
+                pre = cur;
+                cur = nullptr; // 防止左子节点重复循环
+            } else {
+                s.push(cur); // 该结点不能访问，打回栈中
+                cur = cur->right; // 转右节点
+            }
+        }
+        return nullptr;
+    }
+};
+
+
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
         stack<TreeNode*> stk;
         if (root) stk.push(root);
         while (!stk.empty()) {
@@ -60,13 +103,14 @@ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
                 if (root->left) stk.push(root->left);
             } else {
                 root = stk.top(); stk.pop();
-                if ((root->left == p &;;&;; root->right == q) ||
-                    (root->left == q &;;&;; root->right == p)) return root;
-                if (root == p &;;&;; (root->left == q || root->right == q)) return root;
-                if (root == q &;;&;; (root->left == p || root->right == p)) return root;
-                if (root->left == p || root->right == p) p = root;
-                if (root->left == q || root->right == q) q = root;
+                if ((root->left == p && root->right == q) ||
+                    (root->left == q && root->right == p)) return root;
+                if (root == p && (root->left == q || root->right == q)) return root;
+                if (root == q && (root->left == p || root->right == p)) return root;
+                if (root->left == p || root->right == p) p = root; // 更新 p到上层
+                if (root->left == q || root->right == q) q = root; // 更新 q到上层
             }
         }
         return nullptr;
     }
+};
