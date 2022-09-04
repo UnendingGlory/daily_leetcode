@@ -15,12 +15,14 @@ public:
 };
 
 // 复制复杂链表
-// 除了next结点之外，还有一个指向链表中随机结点的random指针
+// 除了next结点之外，还有一个指向链表中随机结点的 random指针
 
-// 难点在于复制random指针
+// 难点在于复制 random指针
 
-// Solution 1：使用map，构建原链表到目标链表的映射
-// 遍历两遍链表, 时间复杂度O(N),空间复杂度O(N)
+// Solution 1：使用 map，构建原链表到目标链表的映射。
+// 遍历两遍链表，第一遍建立 原链表结点地址到目标链表对应结点地址 的映射。
+// 第二遍，根据原链表的指针之间的 next和 random关系构建目标链表的映射。
+// 时间复杂度 O(N),空间复杂度 O(N)。
 class Solution {
 public:
     Node* copyRandomList(Node* head) {

@@ -18,6 +18,7 @@ public:
 
         // 按照出现次数从大到小排序，自定义匿名比较函数，自定义比较函数的大小次序是相反的。
         // 使用传入捕获的方式不行，无法捕获到 hashtable对象。
+        // function<return type(args ...)>;
         using Compare = function<bool(const pair<string, int> &, const pair<string, int> &)>;
         Compare cmp = [](const pair<string, int> &a, const pair<string, int> &b) {
             return a.second == b.second ? a.first < b.first : a.second > b.second;
