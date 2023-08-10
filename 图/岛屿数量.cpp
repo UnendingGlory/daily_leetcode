@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// BFS或者并查集
+// DFS、BFS或者并查集
 class Solution {
 public:
     int numIslands(vector<vector<char>>& grid) {

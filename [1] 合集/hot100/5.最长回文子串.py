@@ -31,7 +31,7 @@ class Solution:
                 end = i+1
 
         for k in range(3, n+1): # 开始递推
-            # 枚举每个子串的起始端点为0，末端为 i + k - 1 <= n - 1，即 i <= n - k
+            # 枚举每个子串的起始端点为 i，末端为 i + k - 1 < n，即 i < n - k + 1
             for i in range(n-k+1): 
                 j = i + k - 1
                 if s[i] == s[j] and dp[i+1][j-1]:
