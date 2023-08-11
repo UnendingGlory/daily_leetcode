@@ -37,7 +37,7 @@ int main() {
 
     int k = 3; // 聚类数
     std::vector<Point> centers;
-    for (int i = 0; i < k; ++i) {
+    for (int i = 0; i < k; ++i) { // 初始化 k个 center
         centers.push_back(data[i]);
     }
 
